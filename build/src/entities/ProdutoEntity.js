@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var ProdutoEntity = /** @class */ (function () {
-    function ProdutoEntity(nome, quantidade) {
+    function ProdutoEntity(nome, quantidade, valor) {
         this.nome = nome,
             this.quantidade = quantidade;
+        this.valor = valor;
     }
     __decorate([
         (0, typeorm_1.PrimaryGeneratedColumn)(),
@@ -27,9 +28,13 @@ var ProdutoEntity = /** @class */ (function () {
         (0, typeorm_1.Column)(),
         __metadata("design:type", Number)
     ], ProdutoEntity.prototype, "quantidade", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", Number)
+    ], ProdutoEntity.prototype, "valor", void 0);
     ProdutoEntity = __decorate([
         (0, typeorm_1.Entity)(),
-        __metadata("design:paramtypes", [String, Number])
+        __metadata("design:paramtypes", [String, Number, Number])
     ], ProdutoEntity);
     return ProdutoEntity;
 }());

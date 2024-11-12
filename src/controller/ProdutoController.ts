@@ -9,14 +9,14 @@ export default class ProdutoController {
 
   async criaProduto(req: Request, res:Response){
 
-    const {nome, quantidade} = <ProdutoEntity>req.body
+    const {nome, quantidade, valor} = <ProdutoEntity>req.body
 
     try {
       if (!nome || !quantidade) {
         return res.status(400).json({ message: "Faltando argumentos" });
       }
   
-      const novoProduto = new ProdutoEntity(nome, quantidade)
+      const novoProduto = new ProdutoEntity(nome, quantidade, valor)
   
       await this.repository.cadastrarProduto(novoProduto)
       return res.status(201).json({message: "produto cadastrado"})
@@ -28,7 +28,26 @@ export default class ProdutoController {
    
 
   }
+  async listarProduto(req:Request, res:Response){
+    const produtos = await this.repository.listar()
+    return res.status(200).json(produtos)
+  }
 
+  async vendaProduto(req: Request, res:Response){
+
+    const {nome} =<ProdutoEntity>req.body
+    const {id} = req.params
+  
+    try {
+      
+    } catch (error) {
+      
+    }
+
+
+
+
+  }
 
 
 }

@@ -9,5 +9,6 @@ const produtoController = new ProdutoController(produtoRepository)
 
 
 router.post("/", (req, res) => produtoController.criaProduto(req, res))
+router.get("/", (req, res) => produtoController.listarProduto(req, res))
 
 export default router

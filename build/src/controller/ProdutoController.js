@@ -46,18 +46,18 @@ var ProdutoController = /** @class */ (function () {
     }
     ProdutoController.prototype.criaProduto = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nome, quantidade, novoProduto, error_1;
+            var _a, nome, quantidade, valor, novoProduto, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, nome = _a.nome, quantidade = _a.quantidade;
+                        _a = req.body, nome = _a.nome, quantidade = _a.quantidade, valor = _a.valor;
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
                         if (!nome || !quantidade) {
                             return [2 /*return*/, res.status(400).json({ message: "Faltando argumentos" })];
                         }
-                        novoProduto = new ProdutoEntity_1.default(nome, quantidade);
+                        novoProduto = new ProdutoEntity_1.default(nome, quantidade, valor);
                         return [4 /*yield*/, this.repository.cadastrarProduto(novoProduto)];
                     case 2:
                         _b.sent();
@@ -68,6 +68,33 @@ var ProdutoController = /** @class */ (function () {
                         return [2 /*return*/, res.status(500).json({ message: "erro interno do servidor" })];
                     case 4: return [2 /*return*/];
                 }
+            });
+        });
+    };
+    ProdutoController.prototype.listarProduto = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var produtos;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.listar()];
+                    case 1:
+                        produtos = _a.sent();
+                        return [2 /*return*/, res.status(200).json(produtos)];
+                }
+            });
+        });
+    };
+    ProdutoController.prototype.vendaProduto = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nome, id;
+            return __generator(this, function (_a) {
+                nome = req.body.nome;
+                id = req.params.id;
+                try {
+                }
+                catch (error) {
+                }
+                return [2 /*return*/];
             });
         });
     };

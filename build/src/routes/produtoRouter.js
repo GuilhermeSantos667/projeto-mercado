@@ -11,4 +11,5 @@ var router = express_1.default.Router();
 var produtoRepository = new ProdutoRepository_1.default(dataSource_1.default.getRepository("ProdutoEntity"));
 var produtoController = new ProdutoController_1.default(produtoRepository);
 router.post("/", function (req, res) { return produtoController.criaProduto(req, res); });
+router.get("/", function (req, res) { return produtoController.listarProduto(req, res); });
 exports.default = router;

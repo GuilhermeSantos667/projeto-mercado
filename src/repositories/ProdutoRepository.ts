@@ -10,11 +10,17 @@ export default class ProdutoRepository implements InterfaceProduto{
   cadastrarProduto(produto:ProdutoEntity): void  {
     this.repository.save(produto)
   }
-  listar(): void | Promise<ProdutoEntity> {
-    throw new Error("Method not implemented.");
+  async listar():Promise<ProdutoEntity[]> {
+
+    return await this.repository.find()
   }
-  listarPorId(id: number): void | Promise<ProdutoEntity> {
-    throw new Error("Method not implemented.");
+  async listarPorId(id: number): Promise<{ success: boolean; message?: string; produto?: ProdutoEntity }> {
+    const produtoProcurado = await this.repository.findOne({ where: { id } });
+
+    if (!produtoProcurado) {
+      return { success: false, message: "Produto não encontrado" };
+    }
+    return { success: true, produto: produtoProcurado };
   }
   excluirProduto(id: number): void | Promise<ProdutoEntity> {
     throw new Error("Method not implemented.");

@@ -10,10 +10,13 @@ export default class ProdutoEntity{
   nome:string
   @Column()
   quantidade: number
+  @Column()
+  valor: number
 
-constructor(nome:string, quantidade:number){
+constructor(nome:string, quantidade:number, valor:number){
   this.nome = nome,
   this.quantidade = quantidade
+  this.valor = valor
 }
 
 }
