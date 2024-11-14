@@ -51,21 +51,21 @@ var ProdutoController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, nome = _a.nome, quantidade = _a.quantidade, valor = _a.valor;
-                        _b.label = 1;
-                    case 1:
-                        _b.trys.push([1, 3, , 4]);
                         if (!nome || !quantidade) {
                             return [2 /*return*/, res.status(400).json({ message: "Faltando argumentos" })];
                         }
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 3, , 4]);
                         novoProduto = new ProdutoEntity_1.default(nome, quantidade, valor);
                         return [4 /*yield*/, this.repository.cadastrarProduto(novoProduto)];
                     case 2:
                         _b.sent();
-                        return [2 /*return*/, res.status(201).json({ message: "produto cadastrado" })];
+                        return [2 /*return*/, res.status(201).json({ message: "Produto cadastrado" })];
                     case 3:
                         error_1 = _b.sent();
                         console.log(error_1);
-                        return [2 /*return*/, res.status(500).json({ message: "erro interno do servidor" })];
+                        return [2 /*return*/, res.status(500).json({ message: "Erro interno do servidor" })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -73,13 +73,82 @@ var ProdutoController = /** @class */ (function () {
     };
     ProdutoController.prototype.listarProduto = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var produtos;
+            var produtos, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.repository.listar()];
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.repository.listar()];
                     case 1:
                         produtos = _a.sent();
                         return [2 /*return*/, res.status(200).json(produtos)];
+                    case 2:
+                        error_2 = _a.sent();
+                        console.log(error_2);
+                        return [2 /*return*/, res.status(500).json({ message: "Erro interno do servidor" })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProdutoController.prototype.listarProdutoPorId = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, produto, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.params.id;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.repository.listarPorId(Number(id))];
+                    case 2:
+                        produto = _a.sent();
+                        if (!produto) {
+                            return [2 /*return*/, res.status(404).json({ message: "Produto não encontrado" })];
+                        }
+                        return [2 /*return*/, res.status(200).json(produto)];
+                    case 3:
+                        error_3 = _a.sent();
+                        console.log(error_3);
+                        return [2 /*return*/, res.status(500).json({ message: "Erro interno do servidor" })];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProdutoController.prototype.editarQuantidade = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, _a, quantidade, gerente, produtoAlterar, error_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        id = req.params.id;
+                        _a = req.body, quantidade = _a.quantidade, gerente = _a.gerente;
+                        if (quantidade === null && gerente === null) {
+                            return [2 /*return*/, res.status(400).json({ message: "Faltando argumentos" })];
+                        }
+                        if (isNaN(Number(id))) {
+                            return [2 /*return*/, res.status(400).json({ message: "ID inválido" })];
+                        }
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.repository.editarQuantidade(Number(id), quantidade, gerente)];
+                    case 2:
+                        produtoAlterar = _b.sent();
+                        if (!gerente) {
+                            return [2 /*return*/, res.status(404).json({ message: "Apenas gerentes podem alterar quantidade de produto!" })];
+                        }
+                        if (!produtoAlterar.success) {
+                            return [2 /*return*/, res.status(400).json({ message: produtoAlterar.message })];
+                        }
+                        return [2 /*return*/, res.status(200).json({ message: produtoAlterar.message })];
+                    case 3:
+                        error_4 = _b.sent();
+                        console.log(error_4);
+                        return [2 /*return*/, res.status(500).json({ message: "Erro interno do servidor" })];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

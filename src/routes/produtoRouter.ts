@@ -10,5 +10,5 @@ const produtoController = new ProdutoController(produtoRepository)
 
 router.post("/", (req, res) => produtoController.criaProduto(req, res))
 router.get("/", (req, res) => produtoController.listarProduto(req, res))
-
+router.put("/:id", (req, res) => produtoController.editarQuantidade(req, res))
 export default router

@@ -55,6 +55,22 @@ var ProdutoRepository = /** @class */ (function () {
     };
     ProdutoRepository.prototype.listarPorId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
+            var produto;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.findOne({ where: { id: id } })];
+                    case 1:
+                        produto = _a.sent();
+                        if (!produto) {
+                            return [2 /*return*/, { success: false, message: "Produto não encontrado" }];
+                        }
+                        return [2 /*return*/, { success: true }];
+                }
+            });
+        });
+    };
+    ProdutoRepository.prototype.editarQuantidade = function (id, quantidade, gerente) {
+        return __awaiter(this, void 0, void 0, function () {
             var produtoProcurado;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -64,7 +80,11 @@ var ProdutoRepository = /** @class */ (function () {
                         if (!produtoProcurado) {
                             return [2 /*return*/, { success: false, message: "Produto não encontrado" }];
                         }
-                        return [2 /*return*/, { success: true, produto: produtoProcurado }];
+                        produtoProcurado.quantidade = quantidade;
+                        return [4 /*yield*/, this.repository.save(produtoProcurado)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/, { success: true, message: "quantidade do produto alterada" }];
                 }
             });
         });

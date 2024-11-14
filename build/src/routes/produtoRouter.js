@@ -12,4 +12,5 @@ var produtoRepository = new ProdutoRepository_1.default(dataSource_1.default.get
 var produtoController = new ProdutoController_1.default(produtoRepository);
 router.post("/", function (req, res) { return produtoController.criaProduto(req, res); });
 router.get("/", function (req, res) { return produtoController.listarProduto(req, res); });
+router.put("/:id", function (req, res) { return produtoController.editarQuantidade(req, res); });
 exports.default = router;
